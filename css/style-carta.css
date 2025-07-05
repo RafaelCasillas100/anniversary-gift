@@ -1,0 +1,257 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primario: #fff;
+  --fondo: #ffebf2;
+  --fondo-sobre: #ffe3ed;
+  --solapa-sobre: #ffccd5;
+  --cuerpo-sobre: #ffc1d1;
+  --sombra: rgba(0, 0, 0, 0.2);
+  --texto: #003049;
+  --corazon: #ff477e;
+}
+
+.carta-container {
+  position: relative;
+  animation: cartaFadeIn 1s ease-in-out;
+}
+
+@keyframes cartaFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.body {
+  background: var(--fondo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 100vw;
+  padding: 0 10px;
+}
+
+h1 {
+  font-family: "Marck Script", serif;
+  text-align: center;
+  font-size: 60px;
+  margin-bottom: 50px;
+  color: #444;
+}
+
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 50px;
+    line-height: 55px;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+  }
+}
+
+.carta-volver {
+  position: absolute;
+  bottom: 80px;
+  text-align: center;
+  width: 100%;
+  z-index: 1000;
+  text-decoration: none;
+  color: #444;
+  cursor: pointer;
+}
+
+.contenedor {
+  width: 500px;
+  position: relative;
+}
+
+.envoltura-sobre {
+  position: relative;
+  background-color: var(--fondo-sobre);
+  box-shadow: 0 0 40px var(--sombra);
+  border-radius: 15px;
+}
+
+.sobre {
+  position: relative;
+  width: 500px;
+  height: 360px;
+}
+
+.sobre::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  border-top: 180px solid var(--solapa-sobre);
+  border-right: 200px solid transparent;
+  border-left: 200px solid transparent;
+  transform-origin: top;
+  transition: all 0.5s ease-in-out 0.7s;
+  border-radius: 10px;
+}
+
+.solapa-derecha {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  background-color: var(--cuerpo-sobre);
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.solapa-izquierda {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+  background-color: var(--cuerpo-sobre);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.carta {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primario);
+  text-align: center;
+  box-shadow: 0 0 5px var(--sombra);
+  padding: 10px;
+  border-radius: 10px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.contenido {
+  font-family: "Gill Sans", Calibri, sans-serif;
+  color: var(--texto);
+  text-align: left;
+  font-size: 18px;
+  height: 100%;
+  padding: 10px;
+  line-height: 14px;
+  cursor: pointer;
+  overflow-y: scroll;
+  text-align: center;
+  line-height: 18px;
+}
+
+.corazon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: var(--corazon);
+  transform: translate(-50%, 0) rotate(45deg);
+  transition: transform 0.5s ease-in-out 1s;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.corazon::before,
+.corazon::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: var(--corazon);
+  border-radius: 100%;
+}
+
+.corazon:before {
+  top: -15px;
+}
+
+.corazon:after {
+  right: 15px;
+}
+
+/*Agregar clases dinamicos*/
+.abierto .sobre::before {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.abierto .corazon {
+  transform: rotate(90deg);
+  transition-delay: 0.4s;
+}
+
+.carta.mostrar-carta {
+  transform: translateY(-290px);
+  transition: transform 0.5s ease-in-out;
+}
+
+.carta.cerrando-carta {
+  transform: translateY(-290px);
+  transition: transform 0.5s ease-in-out;
+}
+
+.carta.abierta {
+  z-index: 10000;
+}
+
+.envoltura-sobre.desactivar-sobre .sobre::before {
+  pointer-events: none;
+}
+
+/*Scroll personalizado*/
+
+/*
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--cuerpo-sobre);
+    border-radius: 4px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--corazon);
+}
+*/
+
+/*Vista celular*/
+
+@media screen and (max-width: 400px) {
+  .contenedor {
+    width: 350px;
+  }
+
+  .sobre {
+    width: 350px;
+    height: 300px;
+  }
+
+  .sobre::before {
+    border-top: 150px solid var(--solapa-sobre);
+    border-right: 150px solid transparent;
+    border-left: 150px solid transparent;
+  }
+}
